@@ -122,3 +122,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scaleFactor: 0.25
+  player: {fileID: 8297033761883234589, guid: d654e0489db55ef48b25906efb243224, type: 3}
