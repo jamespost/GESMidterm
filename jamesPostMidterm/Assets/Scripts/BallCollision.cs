@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class ShrinkAndDestroy : MonoBehaviour
 {
-    [SerializeField] Text collectedText;
+    
 
     //amount to scale transform by
     Vector3 scaleVector;
