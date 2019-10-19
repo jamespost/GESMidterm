@@ -9,4 +9,6 @@ public class BallCollection : MonoBehaviour
     public int ballsCollected = 0;
     //a field to alter UI text
     public Text ballCollectedText;
+
+
 }

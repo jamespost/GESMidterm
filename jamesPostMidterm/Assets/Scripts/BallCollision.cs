@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ShrinkAndDestroy : MonoBehaviour
+public class BallCollision : MonoBehaviour
 {
     
 
