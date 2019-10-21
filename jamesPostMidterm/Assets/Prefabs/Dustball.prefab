@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 860897017426201590}
   m_Layer: 0
   m_Name: Dustball
-  m_TagString: Untagged
+  m_TagString: Dustball
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -123,3 +123,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scaleFactor: 0.25
   player: {fileID: 8297033761883234589, guid: d654e0489db55ef48b25906efb243224, type: 3}
+  ballCollection: {fileID: 0}

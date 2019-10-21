@@ -13,6 +13,8 @@ public class BallCollision : MonoBehaviour
     public GameObject player ;
     public BallCollection ballCollection;
     bool isDestroyed = false;
+    bool hitByEnemy = false;
+    bool hitByPlayer = false;
 
     private void Start()
     {
@@ -25,13 +27,15 @@ public class BallCollision : MonoBehaviour
 
     private void Update()
     {
+        //if the gameobject is scaled to a factor of 0
         if (gameObject.transform.localScale.Equals(new Vector3(0f, 0f, 0f)))
         {
             Destroy(gameObject);
             isDestroyed = true;
         }
 
-        if (isDestroyed)
+        //if the gameobject is destroyed and hitByPlayer
+        if (isDestroyed && hitByPlayer == true)
         {
             Debug.Log("Object destroyed");
             //increment the player's ballsCollected
@@ -44,15 +48,33 @@ public class BallCollision : MonoBehaviour
     {
         if(collision.gameObject.tag == "Player" )
         {
+            hitByPlayer = true;
+            hitByEnemy = false;
             //print a debug message
             //Debug.Log("I've been hit by the player!");
             //shrink myself
-            if(gameObject.transform.localScale.x > 0f && gameObject.transform.localScale.y > 0f && gameObject.transform.localScale.z > 0f)
+            if (gameObject.transform.localScale.x > 0f && gameObject.transform.localScale.y > 0f && gameObject.transform.localScale.z > 0f)
             {
                 //shrink the object
                 gameObject.transform.localScale -= scaleVector;
                 //print a debug message
                 Debug.Log(gameObject.transform.localScale);
+            }
+        }
+
+        if (collision.gameObject.tag == "Enemy")
+        {
+            hitByEnemy = true;
+            hitByPlayer = false;
+            //print a debug message
+            //Debug.Log("I've been hit by the player!");
+            //shrink myself
+            if (gameObject.transform.localScale.x > 0f && gameObject.transform.localScale.y > 0f && gameObject.transform.localScale.z > 0f)
+            {
+                //shrink the object
+                gameObject.transform.localScale -= scaleVector;
+                //print a debug message
+                //Debug.Log(gameObject.transform.localScale);
             }
         }
     }
