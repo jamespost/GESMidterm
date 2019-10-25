@@ -5,15 +5,14 @@ using UnityEngine;
 public class EnemyMovement : MonoBehaviour
 {
     //ball to move towards
-    GameObject dustBallTarget;
+    private GameObject dustBallTarget;
     [SerializeField] float speed = 1.0f;
     [SerializeField] float turnSpeed = 45.0f;
-    [SerializeField] Transform target;
+    private Transform target;
 
     private void Awake()
     {
-        dustBallTarget = GameObject.FindGameObjectWithTag("Dustball");
-        target = dustBallTarget.transform;
+        FindDustball();        
     }
     private void Update()
     {
@@ -21,6 +20,10 @@ public class EnemyMovement : MonoBehaviour
         float step = speed * Time.deltaTime; // calculate distance to move
         transform.position = Vector3.MoveTowards(transform.position, target.position, step);
 
+        if(target.transform == null)
+        {
+            FindDustball();
+        }
         //rotate the object left with the "a" key and right with the "d" key
         //transform.Rotate(Vector3.up, turnSpeed * 1 * Time.deltaTime);
     }
@@ -28,6 +31,7 @@ public class EnemyMovement : MonoBehaviour
     public void FindDustball()
     {
         dustBallTarget = GameObject.FindGameObjectWithTag("Dustball");
+        target = dustBallTarget.transform;
     }
 
 
