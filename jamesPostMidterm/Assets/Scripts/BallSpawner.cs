@@ -9,7 +9,22 @@ public class BallSpawner : MonoBehaviour
     //maximum number of objects to instantiate
     [SerializeField] int maxSpawnNumber;
 
+    //test fields for anser.unity example code outlined in SpawnObjectsAtRandomLocation()
+    public Transform plane;
+    private float x_dim;
+    float z_dim;
 
+    private void Awake()
+    {
+        //assign plane to the floor of the level
+        plane = gameObject.transform;
+    }
+    private void Start()
+    {
+        //get the length and width of the plane
+        //x_dim = plane.
+
+    }
 
     //a method to instantiate objectToSpawn at a random position in the level space
     private void SpawnObjectsAtRandomLocation()
