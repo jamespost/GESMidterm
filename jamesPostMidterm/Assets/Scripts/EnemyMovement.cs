@@ -30,12 +30,19 @@ public class EnemyMovement : MonoBehaviour
 
     public void FindDustball()
     {
-        dustBallTarget = GameObject.FindGameObjectWithTag("Dustball");
-        target = dustBallTarget.transform;
-
-        if (!GameObject.FindGameObjectWithTag("Dustball"))
+        try
         {
+            dustBallTarget = GameObject.FindGameObjectWithTag("Dustball");
+            target = dustBallTarget.transform;
+        }
+        
+
+        catch
+        {
+            //change the target to the player
             target = GameObject.FindGameObjectWithTag("Player").transform;
+            //print a debug
+            Debug.Log("the player is now the target!");
         }
     }
 
