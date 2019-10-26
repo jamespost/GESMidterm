@@ -6,43 +6,47 @@ public class EnemyMovement : MonoBehaviour
 {
     //ball to move towards
     private GameObject dustBallTarget;
+    //transform to move towards
+    private Transform target;
+    //movement fields
     [SerializeField] float speed = 1.0f;
     [SerializeField] float turnSpeed = 45.0f;
-    private Transform target;
 
     private void Awake()
     {
-        FindDustball();    
-        
+        FindDustball();        
     }
     private void Update()
     {
+        //if target is null then run FindDustball() method
         if(!target)
         {
             FindDustball();
         }
-        //rotate the object left with the "a" key and right with the "d" key
-        //transform.Rotate(Vector3.up, turnSpeed * 1 * Time.deltaTime);
+        
+        float step = speed * Time.deltaTime; 
         // Move our position a step closer to the target.
-        float step = speed * Time.deltaTime; // calculate distance to move
         transform.position = Vector3.MoveTowards(transform.position, target.position, step);
     }
 
     public void FindDustball()
     {
+        //if FindDustball() *can* find a dustBall target:
         try
         {
+            //assign dustBallTarget to a game object in the scene with the tag "Dustball"
             dustBallTarget = GameObject.FindGameObjectWithTag("Dustball");
+            //assign target (transform) to the dustBallTargets transform
             target = dustBallTarget.transform;
         }
-        
 
+        //if FindDustball() *cannot* find a dustBall target:
         catch
         {
             //change the target to the player
             target = GameObject.FindGameObjectWithTag("Player").transform;
             //print a debug
-            Debug.Log("the player is now the target!");
+            //Debug.Log("the player is now the target!");
         }
     }
 
