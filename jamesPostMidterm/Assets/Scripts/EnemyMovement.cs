@@ -49,7 +49,4 @@ public class EnemyMovement : MonoBehaviour
             //Debug.Log("the player is now the target!");
         }
     }
-
-
-    //if there are no balls on the ground, move towards the player
 }
