@@ -12,26 +12,31 @@ public class EnemyMovement : MonoBehaviour
 
     private void Awake()
     {
-        FindDustball();        
+        FindDustball();    
+        
     }
     private void Update()
     {
-        // Move our position a step closer to the target.
-        float step = speed * Time.deltaTime; // calculate distance to move
-        transform.position = Vector3.MoveTowards(transform.position, target.position, step);
-
-        if(target.transform == null)
+        if(!target)
         {
             FindDustball();
         }
         //rotate the object left with the "a" key and right with the "d" key
         //transform.Rotate(Vector3.up, turnSpeed * 1 * Time.deltaTime);
+        // Move our position a step closer to the target.
+        float step = speed * Time.deltaTime; // calculate distance to move
+        transform.position = Vector3.MoveTowards(transform.position, target.position, step);
     }
 
     public void FindDustball()
     {
         dustBallTarget = GameObject.FindGameObjectWithTag("Dustball");
         target = dustBallTarget.transform;
+
+        if (!GameObject.FindGameObjectWithTag("Dustball"))
+        {
+            target = GameObject.FindGameObjectWithTag("Player").transform;
+        }
     }
 
 
