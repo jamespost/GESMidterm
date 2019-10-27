@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/dustball spawn test.unity
+    guid: 76e18f864fbd1d949a2c05b379476b8b
   m_configObjects: {}

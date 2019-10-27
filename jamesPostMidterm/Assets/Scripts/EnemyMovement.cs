@@ -12,10 +12,7 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] float speed = 1.0f;
     [SerializeField] float turnSpeed = 45.0f;
 
-    private void Start()
-    {
-        Invoke("FindDustball",3);        
-    }
+    
     private void Update()
     {
         //if target is null then run FindDustball() method
@@ -45,6 +42,7 @@ public class EnemyMovement : MonoBehaviour
         {
             //change the target to the player
             target = GameObject.FindGameObjectWithTag("Player").transform;
+            Invoke("FindDustball", 3);
             //print a debug
             //Debug.Log("the player is now the target!");
         }
