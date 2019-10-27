@@ -12,9 +12,9 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] float speed = 1.0f;
     [SerializeField] float turnSpeed = 45.0f;
 
-    private void Awake()
+    private void Start()
     {
-        FindDustball();        
+        Invoke("FindDustball",3);        
     }
     private void Update()
     {
