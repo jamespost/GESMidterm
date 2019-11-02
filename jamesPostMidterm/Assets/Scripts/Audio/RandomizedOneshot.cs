@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
 //a component that plays a sound back as a one shot with user defined random pitch and volume parameters
 //make sure that gameobject has an audio source attached to it
 [RequireComponent(typeof(AudioSource))]
@@ -14,13 +13,13 @@ public class RandomizedOneshot : MonoBehaviour
     //audio clips to play (allows the user to add multiple sounds to be selected at random)
     [SerializeField] List<AudioClip> audioClips;
     //initial pitch
-    float initialVolume = 1;
+    float initialPitch = 1f;
     //initial volume
-    float initialPitch = 1;
+    float initialVolume = 1f;
     //random pitch amount
-    [SerializeField] float pitchRandomAmount = 0;
+    [SerializeField] float pitchRandomAmount = 0f;
     //random volume amount
-    [SerializeField] float volumeRandomAmount = 0;
+    [SerializeField] float volumeRandomAmount = 0f;
     
     //initialize fields
     private void Awake()
@@ -31,7 +30,7 @@ public class RandomizedOneshot : MonoBehaviour
         audioSource.playOnAwake = false;
 
         //functionality testing REMOVE WHEN FINISHED WRITING CLASS
-        InvokeRepeating("PlayRandomizedAudioClip", 3f, 3f);
+        InvokeRepeating("PlayRandomizedAudioClip", 1f, 1f);
     }
 
     //methods
@@ -51,11 +50,10 @@ public class RandomizedOneshot : MonoBehaviour
     //randomize the clips pitch
     private void RandomizeAudioClipPitch()
     {
-        //convert user defined pitch random range to cents
-        pitchRandomAmount = Mathf.Pow(1.05946f, pitchRandomAmount);
         //set randomPitch to the result of Random.Range() where the user defined pitchRandomAmount is the lower and upper bound
         float randomPitch = Random.Range(-pitchRandomAmount, pitchRandomAmount);
-        audioSource.pitch = initialPitch + randomPitch;
+        //scale the randomPitch result to 12TET
+        audioSource.pitch = (initialPitch * Mathf.Pow(1.05946f, randomPitch));
     }
 
     //randomize the clips volume
