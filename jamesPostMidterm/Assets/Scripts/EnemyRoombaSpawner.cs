@@ -20,7 +20,7 @@ public class EnemyRoombaSpawner : MonoBehaviour
             SpawnEnemyAtRandomLocation();
         }
     }
-
+    //spawns enemy at random location in the level
     private void SpawnEnemyAtRandomLocation()
     {
         if(roombaSpawned == false)
@@ -30,9 +30,11 @@ public class EnemyRoombaSpawner : MonoBehaviour
             //instantiate the enemy roomba at a random location within the level
             Instantiate(enemyRoomba, new Vector3(randX, 0.5f, randZ), Quaternion.identity);
             roombaSpawned = true;
-        }
-       
-        
+        }       
     }
+    //destroys the enemy after a set period of time
+    private void DestroyAfterTime()
+    {
 
+    }
 }

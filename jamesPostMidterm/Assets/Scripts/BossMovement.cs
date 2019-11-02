@@ -33,7 +33,7 @@ public class BossMovement : MonoBehaviour
         {
             //target the player
             target = GameObject.FindGameObjectWithTag("Player").transform;
-            Invoke("FindDustball", 3);
+            //Invoke("FindDustball", 3);
             //print a debug
             //Debug.Log("the player is now the target!");
         }

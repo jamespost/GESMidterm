@@ -14,6 +14,14 @@ public class BallCollection : MonoBehaviour
     {
         ballsCollected = 0;
     }
+    //condition to "win" (end) the game
+    private void WinCondition()
+    {
+        if(ballsCollected >= 40)
+        {
+
+        }
+    }
 
 
 }

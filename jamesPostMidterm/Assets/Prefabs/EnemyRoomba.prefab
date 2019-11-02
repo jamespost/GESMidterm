@@ -325,3 +325,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   turnSpeed: 70
+  destroyTime: 30

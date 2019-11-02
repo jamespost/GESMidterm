@@ -11,8 +11,13 @@ public class EnemyMovement : MonoBehaviour
     //movement fields
     [SerializeField] float speed = 1.0f;
     [SerializeField] float turnSpeed = 45.0f;
+    [SerializeField] int destroyTime = 10;
 
-    
+    private void Start()
+    {
+        //destroy the enemy after a set period of time
+        DestroyAfterTime();
+    }
     private void Update()
     {
         //if target is null then run FindDustball() method
@@ -46,5 +51,12 @@ public class EnemyMovement : MonoBehaviour
             //print a debug
             //Debug.Log("the player is now the target!");
         }
+    }
+    //destroys the enemy after a set period of time
+    private void DestroyAfterTime()
+    {
+        Destroy(gameObject, destroyTime);
+        //debug
+        Debug.Log("enemy roomba should destroy");
     }
 }
