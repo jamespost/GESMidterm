@@ -19,6 +19,12 @@ public class BallCollection : MonoBehaviour
     {
         if(ballsCollected >= 40)
         {
+            //disable all movement scripts
+
+            //show a "you won" UI message on screen
+
+            //load back to the title menu scene after a couple of seconds
+
 
         }
     }

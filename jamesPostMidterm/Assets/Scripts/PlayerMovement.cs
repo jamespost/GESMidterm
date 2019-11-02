@@ -39,7 +39,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
         {
-            //rotate the player left with the "a" key and right with the "d" key
+            //rotate the player with the "a" key and right with the "d" key
             transform.Rotate(Vector3.up, turnSpeed * horizontalInput * Time.deltaTime);
 
             //play normal roomba movement sound
