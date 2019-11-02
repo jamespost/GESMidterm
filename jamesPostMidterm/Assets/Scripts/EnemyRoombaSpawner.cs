@@ -32,9 +32,5 @@ public class EnemyRoombaSpawner : MonoBehaviour
             roombaSpawned = true;
         }       
     }
-    //destroys the enemy after a set period of time
-    private void DestroyAfterTime()
-    {
-
-    }
+    
 }

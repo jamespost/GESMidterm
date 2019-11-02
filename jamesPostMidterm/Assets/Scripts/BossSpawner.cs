@@ -20,7 +20,7 @@ public class BossSpawner : MonoBehaviour
             SpawnEnemyAtRandomLocation();
         }
     }
-
+    //spawns the boss at a random location in the level
     private void SpawnEnemyAtRandomLocation()
     {
         if (roombaSpawned == false)
@@ -31,8 +31,10 @@ public class BossSpawner : MonoBehaviour
             Instantiate(Boss, new Vector3(randX, 0.5f, randZ), Quaternion.identity);
             roombaSpawned = true;
         }
-
+    }
+    //destroys the boss if the player defeats them
+    private void DestroyBoss()
+    {
 
     }
-
 }

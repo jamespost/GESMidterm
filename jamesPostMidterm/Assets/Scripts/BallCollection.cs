@@ -9,6 +9,8 @@ public class BallCollection : MonoBehaviour
     public int ballsCollected;
     //a field to alter UI text
     public Text ballCollectedText;
+    //amount of balls collected needed to "win"
+    [SerializeField] int ballsNeededToWin = 30;
 
     private void Start()
     {
