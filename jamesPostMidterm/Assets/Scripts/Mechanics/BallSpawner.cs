@@ -7,7 +7,7 @@ public class BallSpawner : MonoBehaviour
     //prefab object to instantiate
     [SerializeField] GameObject objectToSpawn;
     //maximum number of objects to instantiate
-    [SerializeField] int maxSpawnNumber = 30;
+    //[SerializeField] int maxSpawnNumber = 30;
     private int objectsSpawned = 0;
 
 

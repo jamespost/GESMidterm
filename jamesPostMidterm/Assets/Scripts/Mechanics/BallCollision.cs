@@ -16,6 +16,14 @@ public class BallCollision : MonoBehaviour
     bool hitByEnemy = false;
     bool hitByPlayer = false;
 
+    //audio fields
+    RandomizedOneshot randomizedOneshot;
+    //initialize fields
+    private void Awake()
+    {
+        randomizedOneshot = GetComponent<RandomizedOneshot>();
+    }
+
     private void Start()
     {
         //initialize scaleFactor
@@ -23,6 +31,10 @@ public class BallCollision : MonoBehaviour
         //get the player's ball collection script
         player = GameObject.FindWithTag("Player");
         ballCollection = player.GetComponent<BallCollection>();
+
+        //play the dustball spawn sound
+        randomizedOneshot.PlayRandomizedAudioClip();
+
     }
 
     private void Update()

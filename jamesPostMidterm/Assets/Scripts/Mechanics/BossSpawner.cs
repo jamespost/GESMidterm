@@ -16,7 +16,7 @@ public class BossSpawner : MonoBehaviour
 
     private void Update()
     {
-        if (player.ballsCollected == 1)
+        if (player.ballsCollected == 20)
         {
             SpawnEnemyAtRandomLocation();
         }

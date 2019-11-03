@@ -6,12 +6,15 @@ using UnityEngine;
 //make sure that gameobject has an audio source attached to it
 [RequireComponent(typeof(AudioSource))]
 public class RandomizedOneshot : MonoBehaviour
-{    
+{
     //fields
+    //name for this randomizedoneshot component
+    [SerializeField] string name = "type one shot group name here";
     //audio source 
     AudioSource audioSource;
     //audio clips to play (allows the user to add multiple sounds to be selected at random)
     [SerializeField] List<AudioClip> audioClips;
+    
     //initial pitch
     float initialPitch = 1f;
     //initial volume
@@ -24,13 +27,16 @@ public class RandomizedOneshot : MonoBehaviour
     //initialize fields
     private void Awake()
     {
+        //set transform to parent gameobject
+        transform.localPosition = gameObject.GetComponentInParent<Transform>().localPosition;
         //set audioSource to the gameobject's Audio Source component
         audioSource = GetComponent<AudioSource>();
         //set audioSource to *not* play on awake
         audioSource.playOnAwake = false;
-
-        //functionality testing REMOVE WHEN FINISHED WRITING CLASS
-        InvokeRepeating("PlayRandomizedAudioClip", 1f, 1f);
+        //set the audioSource to play as a 3d sound
+        audioSource.spatialBlend = 1.0f;
+        //functionality testing REMOVE OR COMMENT OUT WHEN FINISHED WRITING CLASS        
+        //InvokeRepeating("PlayRandomizedAudioClip", 1f, 1f);
     }
 
     //methods
@@ -49,7 +55,7 @@ public class RandomizedOneshot : MonoBehaviour
 
     //randomize the clips pitch
     private void RandomizeAudioClipPitch()
-    {
+    {        
         //set randomPitch to the result of Random.Range() where the user defined pitchRandomAmount is the lower and upper bound
         float randomPitch = Random.Range(-pitchRandomAmount, pitchRandomAmount);
         //scale the randomPitch result to 12TET
