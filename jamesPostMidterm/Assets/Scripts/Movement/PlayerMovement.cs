@@ -88,6 +88,15 @@ public class PlayerMovement : MonoBehaviour
         {
             //stop the player from moving
             hasBeenHitByEnemy = true;
+            //stop the enemy from moving
+            if(collision.gameObject.name == "Boss")
+            {
+                collision.gameObject.GetComponent<BossMovement>().enabled = false;
+            }
+            if (collision.gameObject.name == "EnemyRoomba")
+            {
+                collision.gameObject.GetComponent<EnemyMovement>().enabled = false;
+            }
             //play the hit by enemy sound
             audioSource.PlayOneShot(audioClips.clips[3]);
             //stop the balls from spawning

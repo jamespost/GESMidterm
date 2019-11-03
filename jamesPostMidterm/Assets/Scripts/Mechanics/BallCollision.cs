@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class BallCollision : MonoBehaviour
 {
-    
-
     //amount to scale transform by
     Vector3 scaleVector;
     [SerializeField] float scaleFactor = 0.25f;
@@ -18,15 +16,22 @@ public class BallCollision : MonoBehaviour
 
     //audio fields
     RandomizedOneshot randomizedOneshot;
+    AudioClips audioClips;
+    AudioSource audioSource;
     //initialize fields
     private void Awake()
     {
-        randomizedOneshot = GetComponent<RandomizedOneshot>();
+        
     }
 
     private void Start()
     {
-        //initialize scaleFactor
+        //initialize
+        randomizedOneshot = GetComponent<RandomizedOneshot>();
+        audioSource = GetComponent<AudioSource>();
+        audioClips = GetComponent<AudioClips>();
+
+        
         scaleVector = new Vector3(scaleFactor, scaleFactor, scaleFactor);
         //get the player's ball collection script
         player = GameObject.FindWithTag("Player");
@@ -41,7 +46,7 @@ public class BallCollision : MonoBehaviour
     {
         //if the gameobject is scaled to a factor of 0
         if (gameObject.transform.localScale.Equals(new Vector3(0f, 0f, 0f)))
-        {
+        {            
             Destroy(gameObject);
             isDestroyed = true;
         }
@@ -53,6 +58,8 @@ public class BallCollision : MonoBehaviour
             //increment the player's ballsCollected
             ballCollection.ballsCollected++;
             ballCollection.ballCollectedText.text = "Dustballs Collected: " + ballCollection.ballsCollected;
+            AudioSource targetSource = player.GetComponent<AudioSource>();
+            targetSource.PlayOneShot(player.GetComponent<AudioClips>().clips[4]);
         }
     }
     //if object collides with "Player" then shrink over time and destroy self

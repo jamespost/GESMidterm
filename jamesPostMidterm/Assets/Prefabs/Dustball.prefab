@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 3946374108072104981}
   - component: {fileID: 3946374108072104980}
   - component: {fileID: 3946374108072104987}
+  - component: {fileID: 7017239185825299333}
   m_Layer: 0
   m_Name: Dustball
   m_TagString: Dustball
@@ -241,3 +242,21 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 6920692e95c55f548800e767125732c5, type: 3}
   pitchRandomAmount: 1
   volumeRandomAmount: 0.1
+--- !u!114 &7017239185825299333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3946374108072104986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ee22ddb3d78d5443bb3c620dffdf552, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clips:
+  - {fileID: 8300000, guid: f787e24346ae7604fbe8b12a90214bfe, type: 3}
+  - {fileID: 8300000, guid: d1ba180d0f13c054a927bdac93d6c79f, type: 3}
+  - {fileID: 8300000, guid: 177fcbe0ea155af40a0eb178d46a44c6, type: 3}
+  - {fileID: 8300000, guid: 0295e984349dcc44690dc43b79d0a02c, type: 3}
+  - {fileID: 8300000, guid: 5c19a7a7ad564aa4cbc51c777fbf9319, type: 3}
