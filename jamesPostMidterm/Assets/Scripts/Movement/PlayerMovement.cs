@@ -82,7 +82,7 @@ public class PlayerMovement : MonoBehaviour
             //play the hit by enemy sound
 
             //stop the balls from spawning
-            bs.enabled = false;
+            bs.canSpawnBalls = false;
             //pop up a "lose" message
 
         }
