@@ -7,16 +7,19 @@ public class PlayerMovement : MonoBehaviour
     //private variables
     [SerializeField] float speed = 20.0f;
     [SerializeField] float turnSpeed = 45.0f;
+    [SerializeField] float jumpForce;
     private float horizontalInput;
     private float forwardInput;
-    Rigidbody playerRb;
-    [SerializeField] float jumpForce;
     private bool isOnGround = true;
+    private bool hasBeenHitByEnemy = false;
+    Rigidbody playerRb;
+    BallSpawner bs;
 
     private void Start()
     {
         //initialze variables
         playerRb = GetComponent<Rigidbody>();
+        bs = GameObject.Find("Floor").GetComponent<BallSpawner>();
         jumpForce = 10;             
     }
 
@@ -28,24 +31,25 @@ public class PlayerMovement : MonoBehaviour
         horizontalInput = Input.GetAxis("Horizontal");
         //stores the return value of the vertical input axis (by default, the vertical axis is controled by the "w" and "s" keys
         forwardInput = Input.GetAxis("Vertical");
-
-        if(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S))
+        if (!hasBeenHitByEnemy)
         {
-            //We'll move the vehicle forward with the "w" key, and backward with the "s" key
-            transform.Translate(Vector3.forward * Time.deltaTime * speed * forwardInput);
+            if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S))
+            {
+                //We'll move the vehicle forward with the "w" key, and backward with the "s" key
+                transform.Translate(Vector3.forward * Time.deltaTime * speed * forwardInput);
 
-            //play normal roomba movement sound
+                //play normal roomba movement sound
+            }
+
+            if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
+            {
+                //rotate the player with the "a" key and right with the "d" key
+                transform.Rotate(Vector3.up, turnSpeed * horizontalInput * Time.deltaTime);
+
+                //play normal roomba movement sound
+            }
         }
-
-        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
-        {
-            //rotate the player with the "a" key and right with the "d" key
-            transform.Rotate(Vector3.up, turnSpeed * horizontalInput * Time.deltaTime);
-
-            //play normal roomba movement sound
-        }
-
-        
+                
         /*jumping*/
         //if the player presses the spacebar
         if (Input.GetKeyDown(KeyCode.Space) && isOnGround == true )
@@ -61,7 +65,7 @@ public class PlayerMovement : MonoBehaviour
             
         }
     }
-
+    //collision related cases
     private void OnCollisionEnter(Collision collision)
     {
         //if the object collides with anything tagged "ground"
@@ -69,6 +73,18 @@ public class PlayerMovement : MonoBehaviour
         {
             //set the player to be back on ground
             isOnGround = true;            
+        }
+        //if the object collides with anything tagged "enemy"
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            //stop the player from moving
+            hasBeenHitByEnemy = true;
+            //play the hit by enemy sound
+
+            //stop the balls from spawning
+            bs.enabled = false;
+            //pop up a "lose" message
+
         }
     }
 }

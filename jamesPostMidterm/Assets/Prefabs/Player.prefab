@@ -281,7 +281,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  turnSpeed: 70
+  turnSpeed: 100
   jumpForce: 10
 --- !u!54 &4114924968163598735
 Rigidbody:
@@ -313,6 +313,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ballsCollected: 0
   ballCollectedText: {fileID: 0}
+  ballsNeededToWin: 30
 --- !u!64 &1120679435457999873
 MeshCollider:
   m_ObjectHideFlags: 0
