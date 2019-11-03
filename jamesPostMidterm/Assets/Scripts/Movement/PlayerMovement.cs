@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -8,18 +10,25 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float speed = 20.0f;
     [SerializeField] float turnSpeed = 45.0f;
     [SerializeField] float jumpForce;
+    [SerializeField] GameObject loseScreen;
     private float horizontalInput;
     private float forwardInput;
     private bool isOnGround = true;
     private bool hasBeenHitByEnemy = false;
     Rigidbody playerRb;
     BallSpawner bs;
+    AudioClips audioClips;
+    AudioSource audioSource;
+    
+
 
     private void Start()
     {
         //initialze variables
         playerRb = GetComponent<Rigidbody>();
         bs = GameObject.Find("Floor").GetComponent<BallSpawner>();
+        audioClips = GetComponent<AudioClips>();
+        audioSource = GetComponent<AudioSource>();
         jumpForce = 10;             
     }
 
@@ -60,9 +69,9 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("jump!");
 
             isOnGround = false;
-            
+
             //play the jump sound
-            
+            audioSource.PlayOneShot(audioClips.clips[1]);
         }
     }
     //collision related cases
@@ -80,11 +89,11 @@ public class PlayerMovement : MonoBehaviour
             //stop the player from moving
             hasBeenHitByEnemy = true;
             //play the hit by enemy sound
-
+            audioSource.PlayOneShot(audioClips.clips[3]);
             //stop the balls from spawning
             bs.canSpawnBalls = false;
             //pop up a "lose" message
-
+            loseScreen.SetActive(true);
         }
     }
 }
