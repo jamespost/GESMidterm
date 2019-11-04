@@ -11,14 +11,19 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float turnSpeed = 45.0f;
     [SerializeField] float jumpForce;
     [SerializeField] GameObject loseScreen;
+    [SerializeField] GameObject winScreen;
     private float horizontalInput;
     private float forwardInput;
     private bool isOnGround = true;
     private bool hasBeenHitByEnemy = false;
+    private bool isMoving = true;
+    private bool alreadyWon = false;
     Rigidbody playerRb;
     BallSpawner bs;
+    BallCollection ballCollection;
     AudioClips audioClips;
     AudioSource audioSource;
+        
     
 
 
@@ -27,9 +32,10 @@ public class PlayerMovement : MonoBehaviour
         //initialze variables
         playerRb = GetComponent<Rigidbody>();
         bs = GameObject.Find("Floor").GetComponent<BallSpawner>();
+        ballCollection = GetComponent<BallCollection>();
         audioClips = GetComponent<AudioClips>();
         audioSource = GetComponent<AudioSource>();
-        jumpForce = 10;             
+        jumpForce = 10;        
     }
 
     // Update is called once per frame
@@ -42,12 +48,32 @@ public class PlayerMovement : MonoBehaviour
         forwardInput = Input.GetAxis("Vertical");
         if (!hasBeenHitByEnemy)
         {
+            if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.S))
+            {
+                isMoving = true;
+
+                if (isMoving)
+                {
+                    //play normal roomba movement sound
+                    audioSource.loop = true;
+                    audioSource.PlayOneShot(audioClips.clips[0]);
+                    isMoving = false;
+                }
+            }
             if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S))
             {
                 //We'll move the vehicle forward with the "w" key, and backward with the "s" key
                 transform.Translate(Vector3.forward * Time.deltaTime * speed * forwardInput);
+                //audioSource.loop = true;
 
-                //play normal roomba movement sound
+            }
+            if(Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.S))
+            {
+                isMoving = false;
+                audioSource.loop = false;
+                audioSource.Stop();
+                audioSource.PlayOneShot(audioClips.clips[2]);
+                
             }
 
             if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
@@ -57,6 +83,7 @@ public class PlayerMovement : MonoBehaviour
 
                 //play normal roomba movement sound
             }
+            
         }
                 
         /*jumping*/
@@ -73,6 +100,13 @@ public class PlayerMovement : MonoBehaviour
             //play the jump sound
             audioSource.PlayOneShot(audioClips.clips[1]);
         }
+
+        //check for wincondition
+        if (!alreadyWon)
+        {
+            WinCondition();
+        }
+        
     }
     //collision related cases
     private void OnCollisionEnter(Collision collision)
@@ -89,11 +123,11 @@ public class PlayerMovement : MonoBehaviour
             //stop the player from moving
             hasBeenHitByEnemy = true;
             //stop the enemy from moving
-            if(collision.gameObject.name == "Boss")
+            if(collision.gameObject.name == "Boss(Clone)")
             {
                 collision.gameObject.GetComponent<BossMovement>().enabled = false;
             }
-            if (collision.gameObject.name == "EnemyRoomba")
+            if (collision.gameObject.name == "EnemyRoomba(Clone)")
             {
                 collision.gameObject.GetComponent<EnemyMovement>().enabled = false;
             }
@@ -102,7 +136,28 @@ public class PlayerMovement : MonoBehaviour
             //stop the balls from spawning
             bs.canSpawnBalls = false;
             //pop up a "lose" message
-            loseScreen.SetActive(true);
+            loseScreen.SetActive(true);            
+        }
+    }
+    //condition to "win" (end) the game
+    private void WinCondition()
+    {        
+        if (ballCollection.ballsCollected >= ballCollection.ballsNeededToWin)
+        {
+            //show a "you won" UI message on screen
+            winScreen.SetActive(true);
+            //disable all movement scripts
+            //stop the player from moving
+            hasBeenHitByEnemy = true;
+            //stop the enemy from moving
+
+            GameObject.Find("Boss(Clone)").GetComponent<BossMovement>().enabled = false;
+            GameObject.Find("EnemyRoomba(Clone)").GetComponent<EnemyMovement>().enabled = false;
+            //stop the balls from spawning
+            bs.canSpawnBalls = false;
+            
+            alreadyWon = true;
+            
         }
     }
 }

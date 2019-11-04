@@ -30,6 +30,8 @@ public class BossSpawner : MonoBehaviour
             int randZ = Random.Range(-19, 3);
             //instantiate the enemy roomba at a random location within the level
             Instantiate(Boss, new Vector3(randX, 0.5f, randZ), Quaternion.identity);
+            //play boss spawn sound
+            Boss.GetComponent<AudioSource>().Play();
             roombaSpawned = true;
         }
     }

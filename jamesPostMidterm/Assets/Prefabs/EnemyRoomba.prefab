@@ -311,6 +311,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ballsCollected: 0
   ballCollectedText: {fileID: 0}
+  ballsNeededToWin: 30
 --- !u!114 &7758451419361184271
 MonoBehaviour:
   m_ObjectHideFlags: 0

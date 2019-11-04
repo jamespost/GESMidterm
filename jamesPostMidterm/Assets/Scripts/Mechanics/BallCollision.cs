@@ -46,19 +46,22 @@ public class BallCollision : MonoBehaviour
     {
         //if the gameobject is scaled to a factor of 0
         if (gameObject.transform.localScale.Equals(new Vector3(0f, 0f, 0f)))
-        {            
+        {
+            
             Destroy(gameObject);
             isDestroyed = true;
+            //play the pickup sound
+            
         }
 
         //if the gameobject is destroyed and hitByPlayer
         if (isDestroyed && hitByPlayer == true)
-        {
-            Debug.Log("Object destroyed");
+        {            
             //increment the player's ballsCollected
             ballCollection.ballsCollected++;
             ballCollection.ballCollectedText.text = "Dustballs Collected: " + ballCollection.ballsCollected;
             AudioSource targetSource = player.GetComponent<AudioSource>();
+            //play the pickup sound
             targetSource.PlayOneShot(player.GetComponent<AudioClips>().clips[4]);
         }
     }
@@ -76,8 +79,9 @@ public class BallCollision : MonoBehaviour
             {
                 //shrink the object
                 gameObject.transform.localScale -= scaleVector;
-                //print a debug message
-                Debug.Log(gameObject.transform.localScale);
+                //play the dustabll shrink sound
+                AudioSource targetSource = player.GetComponent<AudioSource>();
+                targetSource.PlayOneShot(player.GetComponent<AudioClips>().clips[5]);
             }
         }
 
