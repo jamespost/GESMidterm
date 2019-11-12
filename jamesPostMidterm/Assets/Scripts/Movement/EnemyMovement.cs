@@ -20,10 +20,10 @@ public class EnemyMovement : MonoBehaviour
     }
     private void Update()
     {
-        //if target is null then run FindDustball() method
-        if(!target)
+        //if target is null then run FindTarget() method
+        if (!target)
         {
-            FindDustball();
+            FindTarget();
         }
         
         float step = speed * Time.deltaTime; 
@@ -31,26 +31,14 @@ public class EnemyMovement : MonoBehaviour
         transform.position = Vector3.MoveTowards(transform.position, target.position, step);
     }
 
-    public void FindDustball()
-    {
-        //if FindDustball() *can* find a dustBall target:
-        try
-        {
-            //assign dustBallTarget to a game object in the scene with the tag "Dustball"
-            dustBallTarget = GameObject.FindGameObjectWithTag("Dustball");
-            //assign target (transform) to the dustBallTargets transform
-            target = dustBallTarget.transform;
-        }
-
-        //if FindDustball() *cannot* find a dustBall target:
-        catch
-        {
-            //change the target to the player
-            target = GameObject.FindGameObjectWithTag("Player").transform;
-            Invoke("FindDustball", 3);
-            //print a debug
-            //Debug.Log("the player is now the target!");
-        }
+    public void FindTarget()
+    {        
+        //target the player
+        target = GameObject.FindGameObjectWithTag("Player").transform;
+        
+        //print a debug
+        //Debug.Log("the player is now the target!");
+        
     }
     //destroys the enemy after a set period of time
     private void DestroyAfterTime()
