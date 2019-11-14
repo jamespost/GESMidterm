@@ -13,8 +13,10 @@ public class PauseGame : MonoBehaviour
     //ballspawner
     BallSpawner ballSpawner;
     bool hasPaused = false;
-
-
+    bool foundEnemy = false;
+    //pause game screen
+    [SerializeField] GameObject pauseScreen;
+        
     private void FixedUpdate()
     {
         //if the player hasn't already paused
@@ -33,8 +35,7 @@ public class PauseGame : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Return))
             {
                 //unpause the game
-                UnPause();
-                
+                UnPause();                
             }
         }
 
@@ -42,24 +43,34 @@ public class PauseGame : MonoBehaviour
 
     private void Pause()
     {
+        
         //player movement
         playerMovement = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
-        ////enemy movement
-        //try
-        //{
-        //    enemyMovement = GameObject.Find("EnemyRoomba").GetComponent<EnemyMovement>();
-        //}
-        //catch
-        //{
-        //    Debug.Log("Unable to find enemyroomba");
-        //}
+        //enemy movement
+        try
+        {
+            enemyMovement = GameObject.FindGameObjectWithTag("Enemy").GetComponent<EnemyMovement>();
+            foundEnemy = true;
+        }
+        catch
+        {
+            Debug.Log("Unable to find enemyroomba");
+            foundEnemy = false;
+        }
         //ballspawner
         ballSpawner = GameObject.Find("Floor").GetComponent<BallSpawner>();
 
         //disable those components
         playerMovement.canMove = false;
-        //enemyMovement.enabled = false;
+        if (foundEnemy)
+        {
+            enemyMovement.canMove = false;
+        }
+
         ballSpawner.canSpawnBalls = false;
+
+        //show the pause screen
+        pauseScreen.SetActive(true);
 
         hasPaused = true;
     }
@@ -70,6 +81,12 @@ public class PauseGame : MonoBehaviour
         playerMovement.canMove = true;
         //enemyMovement.enabled = true;
         ballSpawner.canSpawnBalls = true;
+        if (foundEnemy)
+        {
+            enemyMovement.canMove = true;
+        }
+        //hide the pause screen
+        pauseScreen.SetActive(false);
 
         hasPaused = false;
     }

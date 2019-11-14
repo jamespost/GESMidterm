@@ -12,6 +12,7 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] float speed = 1.0f;
     [SerializeField] float turnSpeed = 45.0f;
     [SerializeField] int destroyTime = 10;
+    public bool canMove = true;
 
     private void Start()
     {
@@ -25,10 +26,14 @@ public class EnemyMovement : MonoBehaviour
         {
             FindTarget();
         }
+
+        if (canMove)
+        {
+            float step = speed * Time.deltaTime;
+            // Move our position a step closer to the target.
+            transform.position = Vector3.MoveTowards(transform.position, target.position, step);
+        }
         
-        float step = speed * Time.deltaTime; 
-        // Move our position a step closer to the target.
-        transform.position = Vector3.MoveTowards(transform.position, target.position, step);
     }
 
     public void FindTarget()
