@@ -23,7 +23,8 @@ public class PlayerMovement : MonoBehaviour
     BallCollection ballCollection;
     AudioClips audioClips;
     AudioSource audioSource;
-        
+    public bool canMove = true;
+    
     
 
 
@@ -35,6 +36,7 @@ public class PlayerMovement : MonoBehaviour
         ballCollection = GetComponent<BallCollection>();
         audioClips = GetComponent<AudioClips>();
         audioSource = GetComponent<AudioSource>();
+        
         jumpForce = 10;        
     }
 
@@ -46,7 +48,7 @@ public class PlayerMovement : MonoBehaviour
         horizontalInput = Input.GetAxis("Horizontal");
         //stores the return value of the vertical input axis (by default, the vertical axis is controled by the "w" and "s" keys
         forwardInput = Input.GetAxis("Vertical");
-        if (!hasBeenHitByEnemy)
+        if (!hasBeenHitByEnemy && canMove)
         {
             if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.S))
             {
