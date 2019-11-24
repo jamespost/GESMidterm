@@ -9,6 +9,7 @@ public class BallCollision : MonoBehaviour
     Vector3 scaleVector;
     [SerializeField] float scaleFactor = 0.25f;
     public GameObject player ;
+    public GameObject dustBinFillbar;
     public BallCollection ballCollection;
     bool isDestroyed = false;
     bool hitByEnemy = false;
@@ -35,6 +36,7 @@ public class BallCollision : MonoBehaviour
         scaleVector = new Vector3(scaleFactor, scaleFactor, scaleFactor);
         //get the player's ball collection script
         player = GameObject.FindWithTag("Player");
+        dustBinFillbar = GameObject.Find("Dustbin Fillbar");
         ballCollection = player.GetComponent<BallCollection>();
 
         //play the dustball spawn sound
@@ -60,6 +62,8 @@ public class BallCollision : MonoBehaviour
             //increment the player's ballsCollected
             ballCollection.ballsCollected++;
             ballCollection.ballCollectedText.text = "Dustballs Collected: " + ballCollection.ballsCollected;
+            //change the fillbar amount
+            dustBinFillbar.GetComponentInChildren<Image>().fillAmount = ballCollection.ballsCollected;
             AudioSource targetSource = player.GetComponent<AudioSource>();
             //play the pickup sound
             targetSource.PlayOneShot(player.GetComponent<AudioClips>().clips[4]);
