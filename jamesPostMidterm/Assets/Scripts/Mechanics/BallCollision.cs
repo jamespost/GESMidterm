@@ -7,7 +7,7 @@ public class BallCollision : MonoBehaviour
 {
     //amount to scale transform by
     Vector3 scaleVector;
-    [SerializeField] float scaleFactor = 0.25f;
+    [SerializeField] float scaleFactor = 0.1f;
     public GameObject player ;
     [SerializeField] Image dustBinFillbar;
     public BallCollection ballCollection;
