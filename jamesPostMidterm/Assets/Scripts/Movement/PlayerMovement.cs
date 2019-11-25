@@ -18,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
     private bool hasBeenHitByEnemy = false;
     private bool isMoving = true;
     private bool alreadyWon = false;
+    
     Rigidbody playerRb;
     BallSpawner bs;
     BallCollection ballCollection;
@@ -103,10 +104,13 @@ public class PlayerMovement : MonoBehaviour
             audioSource.PlayOneShot(audioClips.clips[1]);
         }
 
+        //check for player jumping over power cables
+        CheckIfPlayerJumpedOver();
         //check for wincondition
         if (!alreadyWon)
         {
             WinCondition();
+            
         }
         
     }
@@ -141,11 +145,43 @@ public class PlayerMovement : MonoBehaviour
             loseScreen.SetActive(true);            
         }
     }
+
+    //check if player jumped over powercable
+    //methods
+    void CheckIfPlayerJumpedOver()
+    {
+        GameObject objectHitByHit;
+        //check if the player has jumped above the power cable
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, Mathf.Infinity))
+        {
+            objectHitByHit = hit.collider.gameObject;
+            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.down) * hit.distance, Color.yellow);
+            //if player has jumped over the cable, disable self, tell power strip that it has one less cable attached
+            if (objectHitByHit.name.Contains("Power Cable"))
+            {
+                Destroy(objectHitByHit);
+                //objectHitByHit.SetActive(false);
+            }
+        }
+    }
+
+    ////check if there are any power cables left
+    //bool CheckForPowerCables()
+    //{
+    //    bool powerCablesPresent = true;
+    //    if(GameObject.FindGameObjectsWithTag("Power Cable") == null)
+    //    {
+    //        powerCablesPresent = false;
+    //    }
+    //    return powerCablesPresent;
+    //}
     //condition to "win" (end) the game
     private void WinCondition()
     {        
-        if (ballCollection.ballsCollected >= ballCollection.ballsNeededToWin)
+        if (GameObject.FindGameObjectsWithTag("Power Cable") == null)
         {
+            Debug.Log("there are no power cables left");
             //show a "you won" UI message on screen
             winScreen.SetActive(true);
             //disable all movement scripts
@@ -155,6 +191,7 @@ public class PlayerMovement : MonoBehaviour
 
             GameObject.Find("Boss(Clone)").GetComponent<BossMovement>().enabled = false;
             GameObject.Find("EnemyRoomba(Clone)").GetComponent<EnemyMovement>().enabled = false;
+            Destroy(GameObject.Find("Powerstrip"));
             //stop the balls from spawning
             bs.canSpawnBalls = false;
             

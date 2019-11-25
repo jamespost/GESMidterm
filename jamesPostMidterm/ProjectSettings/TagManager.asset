@@ -8,6 +8,7 @@ TagManager:
   - Dustball
   - Ground
   - Trashbin
+  - Power Cable
   layers:
   - Default
   - TransparentFX
