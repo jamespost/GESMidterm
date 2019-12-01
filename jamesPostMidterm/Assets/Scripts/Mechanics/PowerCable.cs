@@ -10,7 +10,7 @@ public class PowerCable : MonoBehaviour
 
     private void Update()
     {
-        CheckIfPlayerJumpedOver();
+        //CheckIfPlayerJumpedOver();
     }
 
     
