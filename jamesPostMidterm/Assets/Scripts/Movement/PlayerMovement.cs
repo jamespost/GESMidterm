@@ -18,7 +18,7 @@ public class PlayerMovement : MonoBehaviour
     private bool hasBeenHitByEnemy = false;
     private bool isMoving = true;
     private bool alreadyWon = false;
-    
+    private int cableCount = 6;
     Rigidbody playerRb;
     BallSpawner bs;
     BallCollection ballCollection;
@@ -161,7 +161,7 @@ public class PlayerMovement : MonoBehaviour
             if (objectHitByHit.name.Contains("Power Cable"))
             {
                 Destroy(objectHitByHit);
-                //objectHitByHit.SetActive(false);
+                cableCount--;
             }
         }
     }
@@ -179,8 +179,10 @@ public class PlayerMovement : MonoBehaviour
     //condition to "win" (end) the game
     private void WinCondition()
     {        
-        if (GameObject.FindGameObjectsWithTag("Power Cable") == null)
+        if (cableCount == 0)
         {
+            //debug
+            Debug.Log("Player wins");
             Debug.Log("there are no power cables left");
             //show a "you won" UI message on screen
             winScreen.SetActive(true);
