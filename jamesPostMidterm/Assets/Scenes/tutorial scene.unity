@@ -2272,6 +2272,11 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: LoadGameScene
       objectReference: {fileID: 0}
+    - target: {fileID: 7463886461569682092, guid: 5c180ee740441d84badf93ae2f75c8ff,
+        type: 3}
+      propertyPath: m_text
+      value: Next
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5c180ee740441d84badf93ae2f75c8ff, type: 3}
 --- !u!1 &1525961299
@@ -2708,6 +2713,7 @@ MonoBehaviour:
   objectToSpawn: {fileID: 3946374108072104986, guid: b0690d6994d42a34b97e8ac8b1b6c1d4,
     type: 3}
   objectSpawnRate: 1
+  maxSpawnNumber: 5
   canSpawnBalls: 1
 --- !u!1 &1790611838
 GameObject:
@@ -3565,6 +3571,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 189f52f1731d73048b699c7b1475dab8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sceneName: 
 --- !u!114 &2141613412
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3706,5 +3713,10 @@ PrefabInstance:
       propertyPath: winScreen
       value: 
       objectReference: {fileID: 1974159768}
+    - target: {fileID: 626196130347083788, guid: d654e0489db55ef48b25906efb243224,
+        type: 3}
+      propertyPath: requireCablesUnplugged
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d654e0489db55ef48b25906efb243224, type: 3}

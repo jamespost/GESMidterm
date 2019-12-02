@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 
 public class PlayerMovement : MonoBehaviour
@@ -12,6 +13,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float jumpForce;
     [SerializeField] GameObject loseScreen;
     [SerializeField] GameObject winScreen;
+    [SerializeField] GameObject alertScreen;
+    [SerializeField] bool requireCablesUnplugged = false;
     private float horizontalInput;
     private float forwardInput;
     private bool isOnGround = true;
@@ -26,6 +29,8 @@ public class PlayerMovement : MonoBehaviour
     AudioSource audioSource;
     public bool canMove = true;
     public bool hasEmptiedTrash = false;
+    private Scene scene;
+
     
 
 
@@ -37,6 +42,7 @@ public class PlayerMovement : MonoBehaviour
         ballCollection = GetComponent<BallCollection>();
         audioClips = GetComponent<AudioClips>();
         audioSource = GetComponent<AudioSource>();
+        scene = SceneManager.GetActiveScene();
         
         jumpForce = 10;        
     }
@@ -109,7 +115,8 @@ public class PlayerMovement : MonoBehaviour
         //check for wincondition
         if (!alreadyWon)
         {
-            WinCondition();            
+            WinCondition();
+            alertPopUp();
         }
         
     }
@@ -157,7 +164,7 @@ public class PlayerMovement : MonoBehaviour
             objectHitByHit = hit.collider.gameObject;
             Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.down) * hit.distance, Color.yellow);
             //if player has jumped over the cable, disable self, tell power strip that it has one less cable attached
-            if (objectHitByHit.name.Contains("Power Cable"))
+            if (objectHitByHit.name.Contains("Power Cable") && hasEmptiedTrash)
             {
                 Destroy(objectHitByHit);
                 cableCount--;
@@ -165,28 +172,70 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    //popup the alert UI
+    private void alertPopUp()
+    {
+        //if player has emptied trash and requireCablesUnplugged is true
+        if(hasEmptiedTrash && requireCablesUnplugged)
+        {
+            alertScreen.SetActive(true);
+            Invoke("disableAlertScreen", 3);
+        }
+    }
+
+    private void disableAlertScreen()
+    {
+        alertScreen.SetActive(false);
+    }
     
     private void WinCondition()
     {        
-        if (cableCount == 0 || hasEmptiedTrash)
+        if(requireCablesUnplugged)
         {
-            //debug
-            Debug.Log("Player wins");
-            Debug.Log("there are no power cables left");
-            //show a "you won" UI message on screen
-            winScreen.SetActive(true);
-            //disable all movement scripts
-            //stop the player from moving
-            hasBeenHitByEnemy = true;
-            //stop the enemy from moving
+            if (hasEmptiedTrash && cableCount == 0)
+            {
+                //debug
+                Debug.Log("Player wins");
+                Debug.Log("there are no power cables left");
+                //show a "you won" UI message on screen
+                winScreen.SetActive(true);
+                //disable all movement scripts
+                //stop the player from moving
+                hasBeenHitByEnemy = true;
+                //stop the enemy from moving
 
-            GameObject.Find("Boss(Clone)").GetComponent<BossMovement>().enabled = false;
-            GameObject.Find("EnemyRoomba(Clone)").GetComponent<EnemyMovement>().enabled = false;
-            Destroy(GameObject.Find("Powerstrip"));
-            //stop the balls from spawning
-            bs.canSpawnBalls = false;
-            
-            alreadyWon = true;            
+                GameObject.Find("Boss(Clone)").GetComponent<BossMovement>().enabled = false;
+                GameObject.Find("EnemyRoomba(Clone)").GetComponent<EnemyMovement>().enabled = false;
+                Destroy(GameObject.Find("Powerstrip"));
+                //stop the balls from spawning
+                bs.canSpawnBalls = false;
+
+                alreadyWon = true;
+            }
+
         }
+        else
+        {
+            if (hasEmptiedTrash)
+            {
+                //debug
+                Debug.Log("Player wins");
+                Debug.Log("there are no power cables left");
+                //show a "you won" UI message on screen
+                winScreen.SetActive(true);
+                //disable all movement scripts
+                //stop the player from moving
+                hasBeenHitByEnemy = true;
+                //stop the enemy from moving
+
+                GameObject.Find("Boss(Clone)").GetComponent<BossMovement>().enabled = false;
+                GameObject.Find("EnemyRoomba(Clone)").GetComponent<EnemyMovement>().enabled = false;
+                Destroy(GameObject.Find("Powerstrip"));
+                //stop the balls from spawning
+                bs.canSpawnBalls = false;
+
+                alreadyWon = true;
+            }
+        }        
     }
 }

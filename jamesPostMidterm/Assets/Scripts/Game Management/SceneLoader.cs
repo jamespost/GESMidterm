@@ -30,13 +30,13 @@ public class SceneLoader : MonoBehaviour
         //if the current scene is level 1, load the final level
         if (sceneName == "level 1")
         {
-            SceneManager.LoadScene("Final level");
+            SceneManager.LoadScene("Final Level");
         }
 
         //if the current scene is the final level, load the tutorial
-        if (sceneName == "Final level")
+        if (sceneName == "Final Level")
         {
-            SceneManager.LoadScene("tutorial scene");
+            SceneManager.LoadScene("Final Level");
         }        
     }
 }

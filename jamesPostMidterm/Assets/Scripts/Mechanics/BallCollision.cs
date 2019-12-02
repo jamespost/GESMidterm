@@ -90,22 +90,6 @@ public class BallCollision : MonoBehaviour
                 AudioSource targetSource = player.GetComponent<AudioSource>();
                 targetSource.PlayOneShot(player.GetComponent<AudioClips>().clips[5]);
             }
-        }
-
-        if (collision.gameObject.tag == "Enemy")
-        {
-            hitByEnemy = true;
-            hitByPlayer = false;
-            //print a debug message
-            //Debug.Log("I've been hit by the player!");
-            //shrink myself
-            if (gameObject.transform.localScale.x > 0f && gameObject.transform.localScale.y > 0f && gameObject.transform.localScale.z > 0f)
-            {
-                //shrink the object
-                gameObject.transform.localScale -= scaleVector;
-                //print a debug message
-                //Debug.Log(gameObject.transform.localScale);
-            }
-        }
+        }        
     }
 }
