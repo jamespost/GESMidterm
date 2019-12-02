@@ -9,10 +9,12 @@ public class EmptyDustbin : MonoBehaviour
     //has a balltracker
     BallCollection ballCollection;
     public Image dustBinFillbar;
+    GameObject player;
 
     private void Start()
     {
         //initialize ballCollection
+        player = GameObject.Find("Player");
         ballCollection = gameObject.GetComponentInParent<BallCollection>();
         dustBinFillbar = GameObject.Find("Fillbar").GetComponent<Image>();
     }
@@ -20,12 +22,13 @@ public class EmptyDustbin : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         //check to see if the gameobject has collided with anything tagged "Trashbin"
-        if(collision.gameObject.tag == "Trashbin")
+        if(collision.gameObject.tag == "Trashbin" && ballCollection.ballsCollected >= ballCollection.ballsNeededToWin)
         {
             //run the empty method
             Empty();
             //debug
             Debug.Log("hit the trashbin");
+            player.GetComponent<PlayerMovement>().hasEmptiedTrash = true;
         }
         
     }

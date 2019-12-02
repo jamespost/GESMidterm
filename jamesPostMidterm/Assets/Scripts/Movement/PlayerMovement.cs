@@ -25,7 +25,7 @@ public class PlayerMovement : MonoBehaviour
     AudioClips audioClips;
     AudioSource audioSource;
     public bool canMove = true;
-    
+    public bool hasEmptiedTrash = false;
     
 
 
@@ -109,8 +109,7 @@ public class PlayerMovement : MonoBehaviour
         //check for wincondition
         if (!alreadyWon)
         {
-            WinCondition();
-            
+            WinCondition();            
         }
         
     }
@@ -166,20 +165,10 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    ////check if there are any power cables left
-    //bool CheckForPowerCables()
-    //{
-    //    bool powerCablesPresent = true;
-    //    if(GameObject.FindGameObjectsWithTag("Power Cable") == null)
-    //    {
-    //        powerCablesPresent = false;
-    //    }
-    //    return powerCablesPresent;
-    //}
-    //condition to "win" (end) the game
+    
     private void WinCondition()
     {        
-        if (cableCount == 0)
+        if (cableCount == 0 || hasEmptiedTrash)
         {
             //debug
             Debug.Log("Player wins");
@@ -197,8 +186,7 @@ public class PlayerMovement : MonoBehaviour
             //stop the balls from spawning
             bs.canSpawnBalls = false;
             
-            alreadyWon = true;
-            
+            alreadyWon = true;            
         }
     }
 }

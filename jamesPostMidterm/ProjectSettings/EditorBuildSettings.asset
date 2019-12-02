@@ -8,13 +8,22 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Tests/dustball spawn test.unity
     guid: 76e18f864fbd1d949a2c05b379476b8b
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: 9ef4643f15e32ea4784d33454353d81a
   - enabled: 0
     path: Assets/Scenes/Game Level.unity
     guid: a1a1f66b5c342b742bbe7a08dc1ae68a
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/tutorial test.unity
     guid: 16d7e50b40154814397369c87571e62a
+  - enabled: 1
+    path: Assets/Scenes/tutorial scene.unity
+    guid: b0975639cc942a84e9d83e8d57c172e3
+  - enabled: 1
+    path: Assets/Scenes/level 1.unity
+    guid: 076f92d675574f843a3ecef965f19113
+  - enabled: 1
+    path: Assets/Scenes/Final Level.unity
+    guid: 0f6d356e1e31b6046a49abbc2e9f409b
   m_configObjects: {}

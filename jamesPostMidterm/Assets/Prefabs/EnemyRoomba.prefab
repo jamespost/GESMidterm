@@ -304,7 +304,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8028792599145175858}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9eb73252f615ec5418ec7e6b86550c0a, type: 3}
   m_Name: 
@@ -327,3 +327,4 @@ MonoBehaviour:
   speed: 5
   turnSpeed: 70
   destroyTime: 30
+  canMove: 1

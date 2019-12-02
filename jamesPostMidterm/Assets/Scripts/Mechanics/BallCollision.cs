@@ -64,7 +64,9 @@ public class BallCollision : MonoBehaviour
             ballCollection.ballsCollected++;
             ballCollection.ballCollectedText.text = "Dustballs Collected: " + ballCollection.ballsCollected;
             //change the fillbar amount
-            dustBinFillbar.fillAmount = ((ballCollection.ballsCollected)/100f);
+            //scale the amount to fill the bar by the current levels "ballsNeededToWin"
+            //dustBinFillbar.fillAmount = ((ballCollection.ballsCollected)/100f);
+            dustBinFillbar.fillAmount = ((ballCollection.ballsCollected/ballCollection.ballsNeededToWin));
             AudioSource targetSource = player.GetComponent<AudioSource>();
             //play the pickup sound
             targetSource.PlayOneShot(player.GetComponent<AudioClips>().clips[4]);
